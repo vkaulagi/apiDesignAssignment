@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+service InventoryService {
+    rpc CreateBook(Book) returns (google.protobuf.Empty) {}
+    rpc GetBook(BookRequestIsbn) returns (Book) {}
+}
+
+enum Genre {
+    SCIENCE_FICTION = 0;
+    FANTASY = 1;
+    SELF_HELP = 2;
+}
+
+message Book {
+    string title = 1;
+    int32 publishing_year = 3;
+    Genre genre = 2;
+    string author = 5;
+    int32 isbn = 4;
+}
+
+message BookRequestIsbn {
+    int32 isbn = 1;
+}
+
+enum Status {
+    AVAILABLE = 0;
+    TAKEN = 1;
+}
+
+
+message InventoryItem {
+    int32 inventory_number = 1;
+
+    oneof book {
+        Book book1 = 2;
+    }
+}
